@@ -18,10 +18,13 @@ describe("ForecastDetails", () => {
   };
 
   it("renders the correct props", () => {
-    const { getAllByTestId } = render(<ForecastDetails forecast={forecast} />);
+    const { getAllByTestId, getByText } = render(
+      <ForecastDetails forecast={forecast} />
+    );
 
     expect(getAllByTestId("date-id")).toBeTruthy();
-    //expect(getAllByTestId("date-id")).toHaveClass("date");
+    expect(getByText("Mon 30th Apr")).toBeInTheDocument();
     expect(getAllByTestId("date-id")).toHaveLength(1);
+    expect(getAllByTestId("max-temperature-id")).toHaveLength(1);
   });
 });

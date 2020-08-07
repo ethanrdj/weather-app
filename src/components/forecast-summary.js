@@ -4,7 +4,7 @@ import moment from "moment";
 import WeatherIconComponent from "./weather-icon";
 
 const ForecastSummary = (props) => {
-  const { date, temperature, description, icon, handleForecastSelect } = props;
+  const { date, temperature, description, icon, onSelect } = props;
   return (
     <>
       <div className="date" data-testid="date-id">
@@ -19,9 +19,7 @@ const ForecastSummary = (props) => {
       <div className="forecast-summary__icon" data-testid="icon-id">
         <WeatherIconComponent name="owm" iconId={icon} />
       </div>
-      <button value={date} onClick={handleForecastSelect}>
-        More Details
-      </button>
+      <button onClick={() => onSelect(date)}>More Details</button>
     </>
   );
 };
@@ -30,6 +28,8 @@ ForecastSummary.prototype = {
   date: PropTypes.string.isRequired,
   temperature: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  icon: PropTypes.any.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default ForecastSummary;
