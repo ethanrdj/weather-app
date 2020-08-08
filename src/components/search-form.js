@@ -7,12 +7,10 @@ const SearchForm = (props) => {
   };
   return (
     <form>
-      <input
-        type="text"
-        onChange={handleInputChange}
-        value={props.value}
-      ></input>
-      <button onClick={() => props.searchValue(props.location)}>Search</button>
+      <input type="text" onChange={handleInputChange}></input>
+      <button type="button" onClick={() => props.searchValue(props.value)}>
+        Search
+      </button>
     </form>
   );
 };

@@ -4,7 +4,7 @@ import WeatherIcon from "react-icons-weather";
 
 const WeatherIconComponent = (props) => {
   return (
-    <div>
+    <div data-testid="icon-id">
       <WeatherIcon
         name="owm"
         iconId={props.iconId}

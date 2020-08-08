@@ -44,7 +44,7 @@ const App = (props) => {
     async function fetchData() {
       axios
         .get(
-          `https://mcr-codes-weather.herokuapp.com/forecast/city=${location}`
+          `https://mcr-codes-weather.herokuapp.com/forecast?city=${location}`
         )
         .then((res) => {
           setLocation(res.data.location);
