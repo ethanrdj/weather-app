@@ -4,6 +4,7 @@ import LocationDetails from "./location-details.js";
 import ForecastSummaries from "./forecast-summaries";
 import ForecastDetails from "./forecast-details";
 import SearchForm from "./search-form";
+import ErrorMessage from "./error-message";
 
 import "../styles/app.css";
 
@@ -12,6 +13,7 @@ const App = (props) => {
   const [location, setLocation] = useState({ city: "", country: "" });
   const [selectedDate, setSelectedDate] = useState(0);
   const [searchText, setSearchText] = useState("");
+  const [hasError, setHasError] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -42,13 +44,21 @@ const App = (props) => {
 
   const searchAPIForLocation = (location) => {
     async function fetchData() {
-      axios
+      await axios
         .get(
           `https://mcr-codes-weather.herokuapp.com/forecast?city=${location}`
         )
         .then((res) => {
           setLocation(res.data.location);
           setForecasts(res.data.forecasts);
+          setHasError("");
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            setHasError(location);
+          } else if (err.response.status === 500) {
+            setHasError("Server error");
+          }
         });
     }
     fetchData();
@@ -63,6 +73,8 @@ const App = (props) => {
         value={searchText}
         searchValue={searchAPIForLocation}
       />
+
+      {hasError && <ErrorMessage message={hasError} />}
 
       <ForecastSummaries
         forecasts={forecasts}
